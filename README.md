@@ -2,7 +2,26 @@
 
 RustRadio is an SDR-focused signal processing framework built using Rust. It provides a library with low- and high-level signal processing blocks, as well as a command line (CLI) tool for building complete lightweight signal processing pipelines.
 
-Design documents can be found in the [docs](docs/) directory.
+It is still in the inital design and specification phase.
+
+## Motivation
+
+Recent years have seen a meteoric rise in usage of SDR applications. Many various software pipelines have been built, some based on the largely popular GNU Radio framework, and others rolling their own signal processing code.
+
+RustRadio proposes a design for a modern SDR-focused signal processing framework that provides a holistic solution for building modern pipelines:
+
+- **Composability** - processing blocks should be arbitrarily composable at various abstractions levels from the lowest blocks that convert between numerical types to the highest level de/modulation blocks.
+- **Distribution** - existing code should either be available upstream within RustRadio, or otherwise should be easily discoverable and packaged ready for use.
+- **Availability** - modern SDR applications are increasingly run on low-power single board computers (SBCs), the final binaries should support running on multiple architectures (mainly targeting `x86_64`, `i686`, `aarch64`, `armv7` and even `riscv` once it is stabilised and usable).
+
+## Design
+
+RustRadio is designed to support two main usages:
+
+- **Prebuilt binary** - the entire flow is coded in Rust, and a final executable binary representing the flow execution is built, ready for deployment.
+- **Script-based invocation** - a flow is scripted using a simple text-based declarative format. The script can then be fed into a RustRadio execution engine which will dynamically parse, build and execute the flow.
+
+Performance charecteristics of both methods should be relatively similar. Prebuilding a binary is easier to deploy and allows integration with arbitrary Rust code.
 
 ## License
 
