@@ -12,7 +12,7 @@ impl RtlSdrSink {
         let (mut ctl, reader) = rtlsdr_mt::open(0).unwrap();
 
         ctl.enable_agc().unwrap();
-        ctl.set_center_freq(freq);
+        ctl.set_center_freq(freq).unwrap();
 
         RtlSdrSink{
             ctl,
