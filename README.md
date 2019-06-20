@@ -25,9 +25,15 @@ Performance charecteristics of both methods should be relatively similar. Prebui
 
 ## Design
 
-RustRadio is designed to be implemented using the new `async`/`await` ecosystem, which as of now is still pending a stable release.
+RustRadio is designed to be implemented using the new `async`/`await` ecosystem, which as of now is still pending a stable release. Expect design to change heavily as the ecosystem matures.
 
-Generally speaking, each block implementes a `Stream` and/or `Sink` as neccesary, while the scheduling is left to the async runtime.
+Generally speaking, each block implementes a `Stream` and/or `Sink` as neccesary, while the scheduling is left to the async runtime. Thus, RustRadio optimizes for block implementation simplicity.
+
+### Blocks
+
+- Each block implements `Read` and `Write` traits as neccesary
+- Flow of new data items is `await`-ed upon with scheduling left to default async scheduling behavior (pending any specific optimizations)
+- Blocks may hold internal buffers for queueing partial data items (e.g. a strict moving average filter of size `N` might choose not to output any items until the sliding window is saturated with `N` items which have been received)
 
 ## License
 
